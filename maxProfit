@@ -1,0 +1,47 @@
+#include <iostream>
+#include <vector>
+#include <limits.h> // For INT_MAX
+
+using namespace std;
+
+int maxProfit(vector<int>& prices) {
+    if (prices.size() < 2) {
+        return 0; // No profit can be made with less than 2 prices
+    }
+
+    int minPrice = INT_MAX;
+    int maxProfit = 0;
+
+    for (int price : prices) {
+        // Update minimum price if current price is lower
+        if (price < minPrice) {
+            minPrice = price;
+        }
+        // Calculate potential profit if sold today
+        int profit = price - minPrice;
+        // Update maximum profit if the calculated profit is higher
+        if (profit > maxProfit) {
+            maxProfit = profit;
+        }
+    }
+
+    return maxProfit;
+}
+
+int main() {
+    int n;
+    cout << "Enter the number of days: ";
+    cin >> n;
+
+    vector<int> prices(n);
+    cout << "Enter the property prices for each day: ";
+    for (int i = 0; i < n; ++i) {
+        cin >> prices[i];
+    }
+
+    int result = maxProfit(prices);
+    cout << "Maximum profit Meera could have made: " << result << endl;
+
+    return 0;
+}
+
